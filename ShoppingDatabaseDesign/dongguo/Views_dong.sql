@@ -1,9 +1,8 @@
 USE Shopping_Project;
 
 # List all items
-DROP VIEW IF EXISTS item_view;
-
-CREATE VIEW item_view AS
+CREATE
+OR REPLACE VIEW item_view AS
 SELECT
 	item_id,
 	p.name AS 'product_name',
@@ -16,9 +15,8 @@ FROM
 	RIGHT JOIN products p ON i.product_id = p.product_id
 	RIGHT JOIN sellers s ON i.seller_id = s.seller_id;
 
-DROP VIEW IF EXISTS shopping_cart_view;
-
-CREATE VIEW shopping_cart_view AS
+CREATE
+OR REPLACE VIEW shopping_cart_view AS
 SELECT
 	order_id,
 	l.item_id AS 'item_id',
@@ -34,9 +32,8 @@ FROM
 
 DESCRIBE shopping_cart_view;
 
-DROP VIEW IF EXISTS order_subtotal_view;
-
-CREATE VIEW order_subtotal_view AS
+CREATE
+OR REPLACE order_subtotal_view AS
 SELECT
 	o.order_id,
 	v.price AS 'priceOfUnit',
@@ -48,9 +45,8 @@ FROM
 
 DESCRIBE order_subtotal_view;
 
-DROP VIEW IF EXISTS order_total_view;
-
-CREATE VIEW order_total_view AS
+CREATE
+OR REPLACE order_total_view AS
 SELECT
 	order_id,
 	sum(subtotal) AS 'order_total',
@@ -60,9 +56,8 @@ FROM
 GROUP BY
 	order_id;
 
-DROP VIEW IF EXISTS order_view;
-
-CREATE VIEW order_view AS
+CREATE
+OR REPLACE order_view AS
 SELECT
 	v.order_id,
 	o.order_date,
@@ -91,9 +86,8 @@ FROM
 	LEFT JOIN payment_methods p ON o.payment_method_id = p.payment_method_id
 	LEFT JOIN payment_method_categories c ON p.payment_method_category_id = c.payment_method_category_id;
 
-DROP VIEW IF EXISTS order_seller_view;
-
-CREATE VIEW order_seller_view AS
+CREATE
+OR REPLACE order_seller_view AS
 SELECT
 	o.order_date AS 'order_date',
 	s.order_id AS 'order_id',

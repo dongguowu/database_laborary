@@ -1,0 +1,39 @@
+---
+## Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat
+  namespace: tomcat
+spec:
+  type: NodePort
+  selector:
+    app: tomcat
+  ports:
+    - name: tomcat
+      port: 80
+      targetPort: 8080
+      nodePort: 32227
+
+---
+## Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat
+  namespace: tomcat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      containers:
+        - name: tomcat
+          image: tomcat:9.0.71-jre8-temurin-focal
+          ports:
+            - containerPort: 8080

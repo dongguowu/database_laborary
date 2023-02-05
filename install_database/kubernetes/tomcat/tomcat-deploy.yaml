@@ -12,6 +12,7 @@ spec:
   ports:
     - name: tomcat
       port: 80
+      protocol: TCP
       targetPort: 8080
       nodePort: 32227
 
@@ -34,6 +35,6 @@ spec:
     spec:
       containers:
         - name: tomcat
-          image: tomcat:9.0.71-jre8-temurin-focal
+          image: gcr.io/kodekloud/centos-ssh-enabled:tomcat
           ports:
             - containerPort: 8080
